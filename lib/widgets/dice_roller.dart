@@ -26,9 +26,22 @@ class _DiceRollerState extends State<DiceRoller> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'lib/assets/images/dice-$currentDiceRoll.png',
-          width: 200,
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return RotationTransition(
+              turns: animation,
+              child: FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            );
+          },
+          child: Image.asset(
+            'lib/assets/images/dice-$currentDiceRoll.png',
+            key: ValueKey<int>(currentDiceRoll),
+            width: 200,
+          ),
         ),
         const SizedBox(
           height: 24,
@@ -37,8 +50,10 @@ class _DiceRollerState extends State<DiceRoller> {
           width: 120,
           child: ElevatedButton(
             onPressed: rollDice,
-            child: const Text('Roll Dice',
-                style: TextStyle(color: Colors.white, fontSize: 16.0)),
+            child: const Text(
+              'Roll Dice',
+              style: TextStyle(color: Colors.white, fontSize: 16.0),
+            ),
           ),
         ),
       ],
