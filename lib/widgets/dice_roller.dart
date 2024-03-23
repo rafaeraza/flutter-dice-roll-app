@@ -14,10 +14,12 @@ class DiceRoller extends StatefulWidget {
 
 class _DiceRollerState extends State<DiceRoller> {
   var currentDiceRoll = 2;
+  var key = UniqueKey();
 
   void rollDice() {
     setState(() {
       currentDiceRoll = randomizer.nextInt(6) + 1;
+      key = UniqueKey();
     });
   }
 
@@ -39,17 +41,24 @@ class _DiceRollerState extends State<DiceRoller> {
           },
           child: Image.asset(
             'lib/assets/images/dice-$currentDiceRoll.png',
-            key: ValueKey<int>(currentDiceRoll),
+            key: key, // Use key to trigger animation when it changes
             width: 200,
           ),
         ),
         const SizedBox(
-          height: 24,
+          height: 36,
         ),
         SizedBox(
           width: 120,
           child: ElevatedButton(
             onPressed: rollDice,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(
+                vertical: 16.0,
+                horizontal: 8.0,
+              ),
+            ),
             child: const Text(
               'Roll Dice',
               style: TextStyle(color: Colors.white, fontSize: 16.0),

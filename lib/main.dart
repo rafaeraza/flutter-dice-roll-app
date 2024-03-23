@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Dice Roll App',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: GradientContainer(
           Color.fromARGB(255, 26, 2, 80),
